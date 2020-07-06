@@ -18,12 +18,14 @@ else:
 
 CORS(app, resources={r'/api/*': {'origins': '*'}})
 
-
+# API route for downloading Youtube video
 @app.route('/api/download/', defaults={'video_id': None}, methods=['GET'])
 @app.route('/api/download/<video_id>/', methods=['GET'])
 def download(video_id):
     if video_id is not None:
         streams = download_video(video_id)
+
+        # If function returned dict with key "error"
         if "error" in streams:
             return jsonify(streams), 400
         else:
@@ -34,7 +36,7 @@ def download(video_id):
         }
         return jsonify(error)
 
-
+# API route for retrieving info on Youtube video
 @app.route('/api/info/', defaults={'video_id': None}, methods=['GET'])
 @app.route('/api/info/<video_id>/', methods=['GET'])
 def info(video_id):

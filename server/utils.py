@@ -1,11 +1,13 @@
 import pafy
 import os
 
+# Get Youtube API key from environment variables
 YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
 
 if YOUTUBE_API_KEY is not None:
     pafy.set_api_key(YOUTUBE_API_KEY)
 
+# Use Pafy to retrieve download URL + additional info, and then return the data as a dict
 def download_video(video_id):
     try:
         video = pafy.new(video_id)
@@ -42,8 +44,8 @@ def download_video(video_id):
             streamDict = {
                 "url": stream.url,
                 "extension": stream.extension,
-                "mediatype": f"{stream.mediatype} only", # ex. audio only
-                "quality": f"{stream.bitrate}bps" #ex. 128kbps
+                "mediatype": f"{stream.mediatype} only",  # ex. audio only
+                "quality": f"{stream.bitrate}bps"  # ex. 128kbps
             }
             audios.append(streamDict)
 
@@ -51,7 +53,7 @@ def download_video(video_id):
             streamDict = {
                 "url": stream.url,
                 "extension": stream.extension,
-                "mediatype": f"{stream.mediatype} only", # ex. video only
+                "mediatype": f"{stream.mediatype} only",  # ex. video only
                 "quality": stream.resolution
             }
             videos.append(streamDict)
@@ -70,6 +72,8 @@ def download_video(video_id):
 
     return all_streams
 
+
+# Use Pafy to retrieve video info, and then return data as a dict
 def info_video(video_id):
     try:
         video = pafy.new(video_id)
@@ -93,13 +97,13 @@ def info_video(video_id):
             return error
 
     infoDict = {
-        "title" : video.title,
-        "duration" : video.duration,
-        "author" : video.author,
-        "viewcount" : video.viewcount,
-        "likes" : video.likes,
-        "dislikes" : video.dislikes,
-        "description": video.description    
+        "title": video.title,
+        "duration": video.duration,
+        "author": video.author,
+        "viewcount": video.viewcount,
+        "likes": video.likes,
+        "dislikes": video.dislikes,
+        "description": video.description
     }
 
     return infoDict
