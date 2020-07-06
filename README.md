@@ -6,6 +6,10 @@
 
 Youtube video downloader Progressive Web App built using Flask and VueJS.
 
+## Next Steps
+
+- [ ] Add screenshots of pages
+
 ## Built With
 
 Name | Description
